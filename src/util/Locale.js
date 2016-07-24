@@ -1,6 +1,6 @@
 const Locale = {
     app: {
-        TITLE: "Memo-wall App"
+        TITLE: "Memos-wall App"
     },
 
     input: {

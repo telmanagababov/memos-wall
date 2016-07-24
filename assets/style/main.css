@@ -1,6 +1,7 @@
 /*GENERAL*/
 body {
-    background: #f0f8ff;
+    background: rgb(247, 247, 247);
+    overflow: hidden;
 }
 
 /* INPUT-BOX */
