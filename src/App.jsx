@@ -1,12 +1,10 @@
 import React from "react";
-import Paper from "material-ui/Paper";
-import AppBar from "material-ui/AppBar";
+import TitleBar from "./components/TitleBar"
 import InputBox from "./components/InputBox"
-import locale from "./util/Locale"
 
 const App = () => (
     <div>
-        <AppBar title={locale.app.TITLE} showMenuIconButton={false}/>
+        <TitleBar />
         <InputBox />
     </div>
 );
