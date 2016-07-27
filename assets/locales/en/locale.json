@@ -1,3 +1,9 @@
-/**
- * Created by telman on 7/26/2016.
- */
+{
+  "app": {
+    "TITLE": "Memos-wall App"
+  },
+  "input": {
+    "HINT": "Enter a memo",
+    "APPLY": "Add"
+  }
+}
