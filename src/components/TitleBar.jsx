@@ -1,58 +1,49 @@
 import React from "react";
 import Paper from "material-ui/Paper";
 import AppBar from "material-ui/AppBar";
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import RaisedButton from "material-ui/RaisedButton";
-import FileFileDownload from 'material-ui/svg-icons/file/file-download';
-import {locale, MessageKey} from "../util/Locale";
+import ItemsSelect from "./ItemsSelect";
+import {locale, MessageKey} from "../utils/Locale";
+import store from "../store/Store";
+import {setLocale} from "../actions/LocaleActions"
 
 class TitleBar extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            isMenuOpened: false,
-            valueSingle: "3"
+            title: "",
+            select: {
+                values: [],
+                currentValue: ""
+            }
         };
     }
 
-    handleOpenMenu = () => {
-        this.setState({
-            isMenuOpened: true,
+    componentDidMount() {
+        store.subscribe(() => {
+            this.setState({
+                title: locale.getMessage(MessageKey.app.TITLE),
+                select: {
+                    values: store.getState().locale.locales,
+                    currentValue: store.getState().locale.currentLocale
+                }
+            })
         });
-    };
+    }
 
-    handleOnRequestChange = (value) => {
-        this.setState({
-            openMenu: value,
-        });
-    };
-
-    handleChangeSingle = (event, value) => {
-        console.log("handlevaluesingle", event, value);
-        this.setState({
-            valueSingle: value,
-        });
-    };
+    onLanguageChanged(event, index, value) {
+        store.dispatch(setLocale(value));
+    }
 
     render() {
         return <Paper>
-            <AppBar title={locale.t(MessageKey.app.TITLE)}
+            <AppBar title={this.state.title}
                     showMenuIconButton={false}
                     iconElementRight={
-                        <IconMenu
-                                iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                                onChange={this.handleChangeSingle}
-                                value={this.state.valueSingle}>
-                            <MenuItem value="1" primaryText="Refresh" />
-                            <MenuItem value="2" primaryText="Send feedback" />
-                            <MenuItem value="3" primaryText="Settings" />
-                            <MenuItem value="4" primaryText="Help" />
-                            <MenuItem value="5" primaryText="Sign out" />
-                        </IconMenu>
+                        <ItemsSelect
+                                values={this.state.select.values}
+                                currentValue={this.state.select.currentValue}
+                                onChange={this.onLanguageChanged}
+                        />
                     }/>
         </Paper>
     };
