@@ -3,13 +3,16 @@ import MemoVO from "../../data/MemoVO"
 
 const DEFAULT_STATE = [],
     URL_PATTERN = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi,
-    TITLE_LENGTH = 10;
+    TITLE_LENGTH = 20;
 
 const toMemo = (data, id) => {
     var url = data.match(URL_PATTERN),
         memo = new MemoVO();
     memo.id = id;
     memo.title = data.slice(0, TITLE_LENGTH);
+    if(memo.title.length < data.length) {
+        memo.title += "..."
+    }
     memo.info = data;
     memo.url = url ? url[0] : "";
     return memo;

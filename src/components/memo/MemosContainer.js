@@ -20,7 +20,7 @@ class MemosContainer extends React.Component {
     }
 
     render() {
-        return <Paper style={{backgroundColor: "none"}}>
+        return <Paper className="cards-container">
             {this.state.memos.map((memo, index) =>
                 <MemoCard
                         id={memo.id}

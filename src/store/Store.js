@@ -1,4 +1,11 @@
-import { createStore } from "redux"
-import reducers from "../reducers/index"
+import { createStore } from "redux";
+import reducers from "../reducers/index";
+import { loadState, saveState } from "../utils/LocaleStorage";
 
-export default createStore(reducers);
+const store = createStore(reducers, loadState());
+
+store.subscribe(() => {
+    saveState(store.getState());
+});
+
+export default store;

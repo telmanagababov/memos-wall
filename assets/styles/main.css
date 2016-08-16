@@ -29,12 +29,18 @@ body {
 }
 
 /* CARD */
+.cards-container {
+    padding: 20px;
+    background-color: transparent !important;
+    column-width: 350px;
+}
+
 .card {
     width: 350px;
-    margin: 10px;
-    float: left;
+    margin: 20px;
     word-wrap: break-word;
-    position: relative;
+    display: inline-block;
+    overflow: visible;
 }
 
 .card .card-header {
@@ -57,7 +63,9 @@ body {
 }
 
 .card .card-actions-panel button,
-.card .card-actions-panel a {
+.card .card-actions-panel a,
+.card .card-actions-panel span {
     padding: 8px !important;
     box-sizing: content-box !important;
+    transform: none !important;
 }
