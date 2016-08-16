@@ -2,11 +2,10 @@ import React from "react";
 import Paper from "material-ui/Paper";
 import AppBar from "material-ui/AppBar";
 import ItemsSelect from "./ItemsSelect";
-import {locale, MessageKey} from "../utils/Locale";
-import store from "../store/Store";
-import {setLocale} from "../actions/LocaleActions"
+import store from "../../store/Store";
+import {setLocale} from "../../actions/LocaleActions"
 
-class TitleBar extends React.Component {
+class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,11 +19,12 @@ class TitleBar extends React.Component {
 
     componentDidMount() {
         store.subscribe(() => {
+            var locale = store.getState().locale;
             this.setState({
-                title: locale.getMessage(MessageKey.app.TITLE),
+                title: locale.messages.app.TITLE,
                 select: {
-                    values: store.getState().locale.locales,
-                    currentValue: store.getState().locale.currentLocale
+                    values: locale.locales,
+                    currentValue: locale.currentLocale
                 }
             })
         });
@@ -49,4 +49,4 @@ class TitleBar extends React.Component {
     };
 }
 
-export default TitleBar;
+export default NavigationBar;

@@ -1,9 +1,13 @@
 {
   "app": {
-    "TITLE": "Memos-wall App"
+    "TITLE": "Memos Wall"
   },
   "input": {
     "HINT": "Enter a memo",
     "APPLY": "Add"
+  },
+  "memo": {
+    "MORE": "MORE",
+    "REMOVE": "REMOVE"
   }
 }

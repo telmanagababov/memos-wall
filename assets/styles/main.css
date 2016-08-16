@@ -1,7 +1,15 @@
 /*GENERAL*/
 body {
     background: rgb(247, 247, 247);
-    overflow: hidden;
+}
+
+/* TITLE */
+.select-field {
+
+}
+
+.select-field hr {
+    display: none;
 }
 
 /* INPUT-BOX */
@@ -18,4 +26,38 @@ body {
 
 .input-box .input-control {
     float: right;
+}
+
+/* CARD */
+.card {
+    width: 350px;
+    margin: 10px;
+    float: left;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.card .card-header {
+    border-bottom: 2px solid rgb(0, 188, 212);
+}
+
+.card .card-preview {
+    height: 200px;
+}
+
+.card .card-info {
+    border-top: 2px solid rgb(0, 188, 212);
+}
+
+.card .card-actions-panel {
+    padding: 0 !important;
+    width: 100%;
+    background: rgb(0, 188, 212);
+    box-sizing: border-box;
+}
+
+.card .card-actions-panel button,
+.card .card-actions-panel a {
+    padding: 8px !important;
+    box-sizing: content-box !important;
 }

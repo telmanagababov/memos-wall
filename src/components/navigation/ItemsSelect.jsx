@@ -5,14 +5,17 @@ import Paper from "material-ui/Paper";
 
 const ItemsSelect = ({ values, currentValue, onChange }) => (
     <Paper>
-        <SelectField
+        <SelectField className="select-field"
                 autoWidth={true}
                 fullWidth={true}
                 labelStyle={{padding: "0px 30px 0px 15px"}}
                 value={currentValue}
                 onChange={onChange}>
             {values.map((value, index) => {
-                return <MenuItem value={value} primaryText={value} key={index} />
+                return <MenuItem
+                            value={value}
+                            primaryText={value}
+                            key={index} />
             })}
         </SelectField>
     </Paper>

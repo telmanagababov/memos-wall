@@ -1,11 +1,11 @@
 import React from "react";
-import TitleBar from "./components/TitleBar"
-import InputBox from "./components/InputBox"
-import MemosContainer from "./components/MemosContainer"
+import NavigationBar from "./components/navigation/NavigationBar"
+import InputBox from "./components/input/InputBox"
+import MemosContainer from "./components/memo/MemosContainer"
 
 const App = () => (
     <div>
-        <TitleBar />
+        <NavigationBar />
         <InputBox />
         <MemosContainer />
     </div>
