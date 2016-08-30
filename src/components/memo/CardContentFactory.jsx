@@ -8,7 +8,8 @@ const GET_PREVIEW_WEBSITE_PATTERN = "{website}",
     YOUTUBE_ID_REGEX = /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/,
     YOUTUBE_VIDEO_WIDTH = 400,
     YOUTUBE_VIDEO_HEIGHT = 300,
-    YOUTUBE_EMBED_URL = "https://www.youtube.com/embed/";
+    YOUTUBE_EMBED_URL = "https://www.youtube.com/embed/",
+    IMAGE_URL_REGEX = /\.(gif|jpg|jpeg|tiff|png)$/i;
 
 const getPreviewURL = function(url) {
     return GET_PREVIEW_IMAGE_API.replace(GET_PREVIEW_WEBSITE_PATTERN, url);
@@ -27,6 +28,10 @@ const isYoutubeURL = function(url) {
     return url.match(YOUTUBE_URL_REGEX) !== null;
 };
 
+const isImageURL = function(url) {
+    return url.match(IMAGE_URL_REGEX) !== null;
+};
+
 class CardContentFactory {
 
     getCardMedia (url) {
@@ -36,9 +41,13 @@ class CardContentFactory {
             return <iframe width={YOUTUBE_VIDEO_WIDTH} height={YOUTUBE_VIDEO_HEIGHT}
                            src={getYoutubeURL(url)} frameBorder="0" allowFullScreen>
             </iframe>;
+        } else if(isImageURL(url)) {
+            return  <a className="card-preview" href={this.getHref(url)}>
+                <img src={this.getHref(url)} />
+            </a>;
         } else {
-            return  <a href={this.getHref(url)}>
-                <img className="card-preview" src={getPreviewURL(url)} />
+            return  <a className="card-preview" href={this.getHref(url)}>
+                <img src={getPreviewURL(url)} />
             </a>;
         }
     }

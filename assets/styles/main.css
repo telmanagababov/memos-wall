@@ -48,6 +48,11 @@ body {
 }
 
 .card .card-preview {
+    text-align: center;
+    display: inline-block;
+}
+
+.card .card-preview img {
     height: 200px;
 }
 
