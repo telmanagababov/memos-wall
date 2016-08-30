@@ -1,9 +1,9 @@
 class MemoVO {
-    constructor() {
-        this.id=0;
-        this.title = "";
-        this.url = "";
-        this.info = "";
+    constructor(initialData = {id: 0, title: "", url: "", info: ""}) {
+        this.id = initialData.id;
+        this.title = initialData.title;
+        this.url = initialData.url;
+        this.info = initialData.info;
     }
 }
 

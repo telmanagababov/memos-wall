@@ -1,4 +1,4 @@
-import { ADD_MEMO, REMOVE_MEMO } from "../../actions/MemoActions"
+import { ADD_MEMO, REMOVE_MEMO, SET_MEMOS } from "../../actions/MemoActions"
 import MemoVO from "../../data/MemoVO"
 
 const DEFAULT_STATE = [],
@@ -28,6 +28,8 @@ export default function (state = DEFAULT_STATE, action) {
         case REMOVE_MEMO:
             var index = state.findIndex(memo => memo.id === action.id);
             return state.slice(0, index).concat(state.slice(index + 1));
+        case SET_MEMOS:
+            return action.data;
         default:
             return state
     }
