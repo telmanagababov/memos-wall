@@ -1,19 +1,16 @@
 import React from "react";
+import CircularProgress from "material-ui/CircularProgress";
+import store from "../../store/Store";
+import { updateMemos } from "../../actions/MemoActions";
 
-const GET_PREVIEW_WEBSITE_PATTERN = "{website}",
-    GET_PREVIEW_SIZE = "m",
-    GET_PREVIEW_SERVICE = "http://free.pagepeeker.com/v2/thumbs.php",
-    GET_PREVIEW_IMAGE_API = GET_PREVIEW_SERVICE + "?size=" + GET_PREVIEW_SIZE + "&url=" + GET_PREVIEW_WEBSITE_PATTERN,
+const IMAGE_URL_REGEX = /\.(gif|jpg|jpeg|tiff|png)$/i,
     YOUTUBE_URL_REGEX = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/,
     YOUTUBE_ID_REGEX = /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/,
     YOUTUBE_VIDEO_WIDTH = 400,
     YOUTUBE_VIDEO_HEIGHT = 300,
-    YOUTUBE_EMBED_URL = "https://www.youtube.com/embed/",
-    IMAGE_URL_REGEX = /\.(gif|jpg|jpeg|tiff|png)$/i;
+    YOUTUBE_EMBED_URL = "https://www.youtube.com/embed/";
 
-const getPreviewURL = function(url) {
-    return GET_PREVIEW_IMAGE_API.replace(GET_PREVIEW_WEBSITE_PATTERN, url);
-};
+var cache = {};
 
 const getYoutubeId = function(url) {
     return url.match(YOUTUBE_ID_REGEX)[1];
@@ -32,6 +29,23 @@ const isImageURL = function(url) {
     return url.match(IMAGE_URL_REGEX) !== null;
 };
 
+const loadPreview = function(url) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState==4 && xhr.status==200) {
+            var blob = this.response;
+            cache[url] = window.URL.createObjectURL(blob);
+            store.dispatch(updateMemos());
+        }
+    };
+    xhr.open ("GET", "http://localhost:9090" +
+            "?url=" + url +
+            "&width=400&height=300" +
+            "&clipRect=0%2C0%2C400%2C300", true);
+    xhr.responseType = "blob";
+    xhr.send ();
+};
+
 class CardContentFactory {
 
     getCardMedia (url) {
@@ -45,9 +59,14 @@ class CardContentFactory {
             return  <a className="card-preview" href={this.getHref(url)}>
                 <img src={this.getHref(url)} />
             </a>;
+        } else if(cache[url]) {
+            return <a className="card-preview" href={this.getHref(url)}>
+                <img src={cache[url]} />
+            </a>;
         } else {
-            return  <a className="card-preview" href={this.getHref(url)}>
-                <img src={getPreviewURL(url)} />
+            loadPreview(url);
+            return <a className="card-preview" href={this.getHref(url)}>
+                <CircularProgress className="preloader" size={1.5}/>
             </a>;
         }
     }
