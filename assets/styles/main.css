@@ -1,5 +1,6 @@
 /*GENERAL*/
 body {
+    overflow-x: hidden;
     background: rgb(247, 247, 247);
 }
 
